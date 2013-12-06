@@ -26,15 +26,20 @@ static inline CGPoint rwNormalize(CGPoint a) {
     return CGPointMake(a.x / length, a.y / length);
 }
 
+
+static const uint32_t projectileCategory    = 0x01 << 0;
+static const uint32_t monsterCategory       = 0x01 << 1;
+
 #import "MyScene.h"
-@interface MyScene ()
+@interface MyScene () <SKPhysicsContactDelegate>
 @property (nonatomic, strong) SKSpriteNode *player;
 @property (nonatomic) NSTimeInterval lastSpawnTime;
 @property (nonatomic) NSTimeInterval lastUpdateTime;
 @end
 @implementation MyScene
 
--(id)initWithSize:(CGSize)size {    
+-(id)initWithSize:(CGSize)size
+{
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
         NSLog(@"Size: %@", NSStringFromCGSize(size));
@@ -44,6 +49,8 @@ static inline CGPoint rwNormalize(CGPoint a) {
         self.player.position = CGPointMake(self.player.size.width/2, self.frame.size.height/2);
         
         [self addChild:self.player];
+        self.physicsWorld.gravity = CGVectorMake(0, 0);
+        self.physicsWorld.contactDelegate = self;
     }
     return self;
 }
@@ -51,6 +58,14 @@ static inline CGPoint rwNormalize(CGPoint a) {
 {
     // create
     SKSpriteNode *monster = [SKSpriteNode spriteNodeWithImageNamed:@"monster"];
+    
+    monster.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:monster.size];
+    monster.physicsBody.dynamic = YES;//移动是否会受物理引擎影响
+    monster.physicsBody.categoryBitMask = monsterCategory;//当前sprite的掩码位
+    monster.physicsBody.contactTestBitMask = projectileCategory;//碰撞对象
+    monster.physicsBody.collisionBitMask = 0;//物理引擎是否需要处理碰撞事件
+ 
+    
     
     // position
     int minY = monster.size.height / 2;
@@ -90,7 +105,15 @@ static inline CGPoint rwNormalize(CGPoint a) {
     
     // 2. 初始化子弹位置
     SKSpriteNode *projectile = [SKSpriteNode spriteNodeWithImageNamed:@"projectile"];
+    projectile.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:projectile.size.width/2];
+    projectile.physicsBody.dynamic = YES;
+    projectile.physicsBody.categoryBitMask = projectileCategory;
+    projectile.physicsBody.contactTestBitMask = monsterCategory;
+    projectile.physicsBody.collisionBitMask = 0;
+    projectile.physicsBody.usesPreciseCollisionDetection = YES;//快速移动的对象预检测机制
+    
     projectile.position = self.player.position;
+
     
     // 3. 计算偏移量
     CGPoint offset = rwSub(location, projectile.position);
@@ -119,8 +142,32 @@ static inline CGPoint rwNormalize(CGPoint a) {
     SKAction *actionMoveDone = [SKAction removeFromParent];
     [projectile runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
     
+}
+
+- (void)projectile:(SKSpriteNode *)projectile didCollideWithMonster:(SKSpriteNode *)monster
+{
+    NSLog(@"Tips: hit");
+    [projectile removeFromParent];
+    [monster removeFromParent];
+}
+
+- (void)didBeginContact:(SKPhysicsContact *)contact
+{
+    // 1. 排序区分对象
+    SKPhysicsBody *firstBody, *secondBody;
+    if (contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask) {
+        firstBody = contact.bodyA;
+        secondBody = contact.bodyB;
+    }else{
+        firstBody = contact.bodyB;
+        secondBody = contact.bodyA;
+    }
     
-    
+    // 2.检测碰撞
+    if ((firstBody.categoryBitMask & projectileCategory) != 0
+        && (secondBody.categoryBitMask & monsterCategory) != 0) {
+        [self projectile:(SKSpriteNode *)firstBody.node didCollideWithMonster:(SKSpriteNode *)secondBody.node];
+    }
 }
 
 -(void)update:(CFTimeInterval)currentTime {
