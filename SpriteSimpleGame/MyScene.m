@@ -6,6 +6,26 @@
 //  Copyright (c) 2013年 neo. All rights reserved.
 //
 
+
+//向量运算
+static inline CGPoint rwAdd(CGPoint a, CGPoint b) {
+    return CGPointMake(a.x + b.x, a.y + b.y);
+}
+static inline CGPoint rwSub(CGPoint a, CGPoint b) {
+    return CGPointMake(a.x - b.x, a.y - b.y);
+}
+static inline CGPoint rwMult(CGPoint a, float b) {
+    return CGPointMake(a.x * b, a.y * b);
+}
+static inline float rwLength(CGPoint a) {
+    return sqrtf(a.x * a.x + a.y * a.y);
+}
+// 让向量的长度（模）等于1
+static inline CGPoint rwNormalize(CGPoint a) {
+    float length = rwLength(a);
+    return CGPointMake(a.x / length, a.y / length);
+}
+
 #import "MyScene.h"
 @interface MyScene ()
 @property (nonatomic, strong) SKSpriteNode *player;
@@ -64,20 +84,43 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     /* Called when a touch begins */
+    // 1. 读取位置
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInNode:self];
     
-//    for (UITouch *touch in touches) {
-//        CGPoint location = [touch locationInNode:self];
-//        
-//        SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
-//        
-//        sprite.position = location;
-//        
-//        SKAction *action = [SKAction rotateByAngle:M_PI duration:1];
-//        
-//        [sprite runAction:[SKAction repeatActionForever:action]];
-//        
-//        [self addChild:sprite];
-//    }
+    // 2. 初始化子弹位置
+    SKSpriteNode *projectile = [SKSpriteNode spriteNodeWithImageNamed:@"projectile"];
+    projectile.position = self.player.position;
+    
+    // 3. 计算偏移量
+    CGPoint offset = rwSub(location, projectile.position);
+    
+    // 4. 向后射不处理
+    if (offset.x < 0) {
+        return;
+    }
+    
+    // 5. 添加子弹
+    [self addChild:projectile];
+    
+    // 6. 读取子弹射出方向
+    CGPoint direction = rwNormalize(offset);
+    
+    // 7. 设定子弹的目标位置
+    CGPoint shootAmount = rwMult(direction, 1000.0f);
+    
+    // 8. 子弹真实目标位置
+    CGPoint realDest = rwAdd(projectile.position, shootAmount);
+    
+    // 9.创建action
+    float velocity = 480.0f / 1.0f;
+    float realMoveDuration = self.size.width / velocity;
+    SKAction *actionMove = [SKAction moveTo:realDest duration:realMoveDuration];
+    SKAction *actionMoveDone = [SKAction removeFromParent];
+    [projectile runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
+    
+    
+    
 }
 
 -(void)update:(CFTimeInterval)currentTime {
