@@ -31,6 +31,7 @@ static const uint32_t projectileCategory    = 0x01 << 0;
 static const uint32_t monsterCategory       = 0x01 << 1;
 
 #import "MyScene.h"
+#import "GameOverScene.h"
 @interface MyScene () <SKPhysicsContactDelegate>
 @property (nonatomic, strong) SKSpriteNode *player;
 @property (nonatomic) NSTimeInterval lastSpawnTime;
@@ -84,8 +85,13 @@ static const uint32_t monsterCategory       = 0x01 << 1;
     
     //create action
     SKAction *actionMove = [SKAction moveTo:CGPointMake(-monster.size.width/2, actualY) duration:actualDuration];
-    SKAction *actionMoveDone = [SKAction removeFromParent];
-    [monster runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
+    //SKAction *actionMoveDone = [SKAction removeFromParent];
+	SKAction *lostAction = [SKAction runBlock:^{
+		SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
+		SKScene *gameOverScene = [[GameOverScene alloc] initWithSize:self.size won:NO];
+		[self.view presentScene:gameOverScene transition:reveal];
+	}];
+    [monster runAction:[SKAction sequence:@[actionMove, lostAction]]];
 }
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast
@@ -153,6 +159,7 @@ static const uint32_t monsterCategory       = 0x01 << 1;
 
 - (void)didBeginContact:(SKPhysicsContact *)contact
 {
+	[self runAction:[SKAction playSoundFileNamed:@"pew-pew-lei.caf" waitForCompletion:NO]];
     // 1. 排序区分对象
     SKPhysicsBody *firstBody, *secondBody;
     if (contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask) {
