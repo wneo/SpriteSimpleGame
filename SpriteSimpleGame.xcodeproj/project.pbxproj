@@ -134,13 +134,13 @@
 				B5808A5C185321960024F031 /* GameOverScene.m */,
 				B52EE8D21852356E005464C9 /* AppDelegate.h */,
 				B52EE8D31852356E005464C9 /* AppDelegate.m */,
-				B52EE8D51852356E005464C9 /* Main.storyboard */,
 				B52EE8D81852356E005464C9 /* ViewController.h */,
 				B52EE8D91852356E005464C9 /* ViewController.m */,
 				B52EE8DB1852356E005464C9 /* MyScene.h */,
 				B52EE8DC1852356E005464C9 /* MyScene.m */,
 				B52EE8DE1852356E005464C9 /* Spaceship.png */,
 				B52EE8E01852356E005464C9 /* Images.xcassets */,
+				B52EE8D51852356E005464C9 /* Main.storyboard */,
 				B52EE8CA1852356E005464C9 /* Supporting Files */,
 			);
 			path = SpriteSimpleGame;
