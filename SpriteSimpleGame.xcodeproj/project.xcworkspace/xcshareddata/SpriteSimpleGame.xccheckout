@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>0CA4EE2E-5549-492F-B794-94E8544682D3</string>
+	<key>IDESourceControlProjectName</key>
+	<string>SpriteSimpleGame</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>BD7140F0-19A4-4362-95D5-48FEAA856BEC</key>
+		<string>https://github.com/wneo/SpriteSimpleGame.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>SpriteSimpleGame.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>BD7140F0-19A4-4362-95D5-48FEAA856BEC</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/wneo/SpriteSimpleGame.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>BD7140F0-19A4-4362-95D5-48FEAA856BEC</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>BD7140F0-19A4-4362-95D5-48FEAA856BEC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SpriteSimpleGame</string>
+		</dict>
+	</array>
+</dict>
+</plist>
