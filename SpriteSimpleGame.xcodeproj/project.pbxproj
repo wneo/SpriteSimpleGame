@@ -24,6 +24,7 @@
 		B52EE8EA1852356E005464C9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B52EE8C51852356E005464C9 /* UIKit.framework */; };
 		B52EE8F21852356E005464C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B52EE8F01852356E005464C9 /* InfoPlist.strings */; };
 		B52EE8F41852356E005464C9 /* SpriteSimpleGameTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B52EE8F31852356E005464C9 /* SpriteSimpleGameTests.m */; };
+		B5808A5D185321960024F031 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B5808A5C185321960024F031 /* GameOverScene.m */; };
 		B59A171418523BAB00C65424 /* background-music-aac.caf in Resources */ = {isa = PBXBuildFile; fileRef = B59A171118523BAB00C65424 /* background-music-aac.caf */; };
 		B59A171518523BAB00C65424 /* pew-pew-lei.caf in Resources */ = {isa = PBXBuildFile; fileRef = B59A171218523BAB00C65424 /* pew-pew-lei.caf */; };
 		B59A171618523BAB00C65424 /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B59A171318523BAB00C65424 /* sprites.atlas */; };
@@ -63,6 +64,8 @@
 		B52EE8EF1852356E005464C9 /* SpriteSimpleGameTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SpriteSimpleGameTests-Info.plist"; sourceTree = "<group>"; };
 		B52EE8F11852356E005464C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B52EE8F31852356E005464C9 /* SpriteSimpleGameTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SpriteSimpleGameTests.m; sourceTree = "<group>"; };
+		B5808A5B185321960024F031 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
+		B5808A5C185321960024F031 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
 		B59A171118523BAB00C65424 /* background-music-aac.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "background-music-aac.caf"; sourceTree = "<group>"; };
 		B59A171218523BAB00C65424 /* pew-pew-lei.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pew-pew-lei.caf"; sourceTree = "<group>"; };
 		B59A171318523BAB00C65424 /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
@@ -127,6 +130,8 @@
 		B52EE8C91852356E005464C9 /* SpriteSimpleGame */ = {
 			isa = PBXGroup;
 			children = (
+				B5808A5B185321960024F031 /* GameOverScene.h */,
+				B5808A5C185321960024F031 /* GameOverScene.m */,
 				B52EE8D21852356E005464C9 /* AppDelegate.h */,
 				B52EE8D31852356E005464C9 /* AppDelegate.m */,
 				B52EE8D51852356E005464C9 /* Main.storyboard */,
@@ -290,6 +295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5808A5D185321960024F031 /* GameOverScene.m in Sources */,
 				B52EE8DD1852356E005464C9 /* MyScene.m in Sources */,
 				B52EE8DA1852356E005464C9 /* ViewController.m in Sources */,
 				B52EE8D41852356E005464C9 /* AppDelegate.m in Sources */,
